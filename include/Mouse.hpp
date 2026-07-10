@@ -1,8 +1,8 @@
 #pragma once
 
 #include <iostream>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_image.h>
 
 class Mouse
 {
@@ -13,8 +13,8 @@ public:
     void update(); // updates positions
     SDL_Texture *GetTexture();
     void Draw(SDL_Renderer *r);
-    SDL_Rect point; // use to inteact with button
+    SDL_FRect point; // use to inteact with button
 private:
     SDL_Texture *texture;
-    SDL_Rect dest; 
+    SDL_FRect dest;
 };

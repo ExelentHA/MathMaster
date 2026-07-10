@@ -1,7 +1,11 @@
+/*
+TODO: Lazy Assert.. Change to proper error handling
+ */
+
+
 #include "Sound.hpp"
 
 Sound::Sound()
-: sound(nullptr)
 {
     hasSound = false;
 }
@@ -11,40 +15,50 @@ Sound::~Sound()
     Close();
 }
 
-void Sound::Init(const char *path)
+// LOG: Made a separate Load Function. THIS IS AN INIT FUNCTION GAHD DARN IT!!
+void Sound::Init()
 {
-    if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096))
-        std::cerr << "Mix_OpenAudio Error: " << Mix_GetError() << std::endl;
-    sound = Mix_LoadMUS(path);
-    if(sound == nullptr)
-    {
-        std::cerr << "failed to load the music. Error: " << Mix_GetError() << std::endl;
-    }
-    else
-    {
-        hasSound = true;
-    }
+  if(!MIX_Init())
+    std::cerr << "MIX_Init Error: " << SDL_GetError() << std::endl;
+
+  // create mixer obj
+  mixer = MIX_CreateMixerDevice(SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK, nullptr); 
+  if(mixer == nullptr)
+        std::cerr << "MIX_CreateMixerDevice Error: " << SDL_GetError() << std::endl;
+}
+
+void Sound::Load_Audio(const char *path)
+{
+  // Load the audio inside the mixer
+  sound = MIX_LoadAudio(mixer, path, 1);
+  if(sound == nullptr)
+  {
+    std::cerr << "MIX_LoadAudio Error: " << SDL_GetError() << std::endl; 
+  }
+}
+
+void Sound::Create_Track()
+{
+  // create a handle to those audio
+  MIX_CreateTrack(mixer);
 }
 
 bool Sound::Check()
 {
-    return hasSound;
+  return hasSound;
 }
 
 void Sound::Stop()
 {
-    Mix_HaltMusic();
+  assert(MIX_StopTrack(track, 0) == 0);
 }
 
 void Sound::Play()
 {
-    Mix_PlayMusic(sound, 0);
+  assert(MIX_PlayTrack(track, 0) == 0);
 }
-
-
 
 void Sound::Close()
 {
-    Mix_FreeMusic(sound);
-    Mix_CloseAudio();
+  MIX_DestroyMixer(mixer); // Destroy The Mixer
 }

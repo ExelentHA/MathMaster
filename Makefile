@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -g -std=c++17 -m64 -Iinclude -Wall # -Werror
+CFLAGS = -g -std=c++17 -Iinclude -Wall -Wextra # -Werror
 # LFLAGS = 
 
 BINDIR = bin
@@ -18,7 +18,7 @@ all: $(TARGET)
 
 # Build Rules
 $(TARGET) : $(OBJ)
-	$(CC) $(CFLAGS) $^ -o $@ -L$(LIBDIR) -lmingw32 -lSDL2main -lSDL2 -lSDL2_test -lSDL2_mixer -lSDL2_image -lSDL2_ttf
+	$(CC) $(CFLAGS) $^ -o $@ -L$(LIBDIR) -lmingw32 -lSDL3 -lSDL3_mixer -lSDL3_image -lSDL3_ttf
 
 $(BINDIR)/%.o : $(SRCDIR)/%.cpp
 	$(CC) $(CFLAGS) -c $< -o $@ 

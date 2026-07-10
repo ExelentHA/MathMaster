@@ -60,5 +60,5 @@ void Clock::Update(SDL_Renderer *r)
 
 void Clock::Render(SDL_Renderer *renderer)
 {
-    SDL_RenderCopy(renderer, text.GetTexture(), nullptr, &text.rect);
+    SDL_RenderTexture(renderer, text.GetTexture(), nullptr, &text.rect);
 }

@@ -1,5 +1,5 @@
 #include "Mouse.hpp"
-
+#include <cassert>
 Mouse::Mouse(SDL_Renderer *renderer, const char *path)
 {
     texture = IMG_LoadTexture(renderer, path);
@@ -7,7 +7,7 @@ Mouse::Mouse(SDL_Renderer *renderer, const char *path)
         std::cerr << "Failed to load texture Error: " << SDL_GetError() << std::endl;
     dest.h = dest.w = 32;
     point.h = point.w = 1;
-    SDL_ShowCursor(false);
+    assert(SDL_HideCursor() == true); // hide the cursor in the screen
 }
 
 Mouse::~Mouse()
@@ -29,5 +29,5 @@ SDL_Texture *Mouse::GetTexture()
 
 void Mouse::Draw(SDL_Renderer *r)
 {
-    SDL_RenderCopy(r, texture, nullptr, &dest);
+    SDL_RenderTexture(r, texture, nullptr, &dest);
 }

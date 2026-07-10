@@ -1,8 +1,8 @@
 #pragma once
 
 #include <iostream>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_ttf.h>
 
 class Text
 {
@@ -15,7 +15,7 @@ public:
     void SetColor(SDL_Color *pcolor);
     SDL_Color GetColor();
     SDL_Texture* GetTexture();
-    SDL_Rect rect;
+    SDL_FRect rect;
 private:
     std::string prevText = "";
     SDL_Color color, prevColor;

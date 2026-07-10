@@ -11,7 +11,7 @@ Button::~Button()
 
 void Button::Events(const SDL_Event *ev)
 {
-    if(ev->type == SDL_MOUSEBUTTONDOWN) {
+    if(ev->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
         if(ev->button.button == SDL_BUTTON_LEFT &&
                 ev->button.x >= rect->x &&
                 ev->button.x <= (rect->x + rect->w) &&
@@ -20,7 +20,7 @@ void Button::Events(const SDL_Event *ev)
             pressed = true;
         }
     }
-    if(ev->type == SDL_MOUSEMOTION)
+    if(ev->type == SDL_EVENT_MOUSE_MOTION)
     {
         if( (ev->motion.x >= rect->x &&
             ev->motion.x <= (rect->x + rect->w) &&

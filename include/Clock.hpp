@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include <SDL2/SDL.h>
+#include <SDL3/SDL.h>
 
 #include "Text.hpp"
 #include "Timer.hpp"
