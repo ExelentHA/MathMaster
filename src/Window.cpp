@@ -2,7 +2,7 @@
 
 WindowRenderer::WindowRenderer()
 {
-    if(SDL_Init(SDL_INIT_EVERYTHING) != 0)
+  if(!SDL_Init(SDL_INIT_VIDEO))
     {
         std::cerr << "SDL Filed to initialize err: " << SDL_GetError() << std::endl; 
     }
@@ -13,11 +13,11 @@ WindowRenderer::~WindowRenderer()
 
 void WindowRenderer::create(const char* title, int Width, int Height)
 {
-    window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Width, Height, 0);
+    window = SDL_CreateWindow(title, Width, Height, 0);
     if(window == nullptr){
         std::cerr << "Failed to Create window Err: " << SDL_GetError() << std::endl;
     }
-    renderer = SDL_CreateRenderer(window, -1, 0);
+    renderer = SDL_CreateRenderer(window, nullptr);
     if(renderer == nullptr)
     {
         std::cerr << "Failed to create renderer Err: " << SDL_GetError() << std::endl;
@@ -30,9 +30,9 @@ void WindowRenderer::loadImage(const char *path)
     // load a texture
     SDL_Surface *img = IMG_Load(path);
     if(img == nullptr)
-        std::cerr << "IMG path error: " << IMG_GetError() << std::endl;
+        std::cerr << "IMG path error: " << SDL_GetError() << std::endl;
     texture = IMG_LoadTexture(renderer, path);
-    SDL_FreeSurface(img); // clear Img buffer
+    SDL_DestroySurface(img); // clear Img buffer
     if(texture == nullptr)
         std::cerr << "CreateTextureFromSurface error: " << SDL_GetError() << std::endl;
 }
@@ -49,11 +49,11 @@ void WindowRenderer::present()
 
 void WindowRenderer::render(SDL_Texture *t,int posx, int posy, int offsetx, int offsety, int size)
 { 
-    SDL_Rect dst;
+    SDL_FRect dst;
 	// src.x = 0;
 	// src. y = 0;
 
-	SDL_QueryTexture(t, NULL, NULL, &dst.w, &dst.h);
+	SDL_GetTextureSize(t, &dst.w, &dst.h);
 
     // src.w = dst.w;
     // src.h = src.h;
@@ -64,7 +64,7 @@ void WindowRenderer::render(SDL_Texture *t,int posx, int posy, int offsetx, int 
 	dst.h = dst.h/size;
     // std::cout << dst.h << " " << dst.w << std::endl;
     // render
-    SDL_RenderCopy(renderer, t, nullptr, &dst);
+    SDL_RenderTexture(renderer, t, nullptr, &dst);
 }
 
 void WindowRenderer::clean()

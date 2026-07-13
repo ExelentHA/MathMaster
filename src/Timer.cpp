@@ -12,7 +12,7 @@ Timer::~Timer()
 
 void Timer::Reset()
 {
-    startTicks = SDL_GetTicks64();
+    startTicks = SDL_GetTicks();
     elapseTicks = 0;
     deltaTime = 0.0f;
 }
@@ -34,6 +34,6 @@ float Timer::GetTimeScale()
 
 void Timer::Update()
 {
-    elapseTicks = SDL_GetTicks64() - startTicks;
+    elapseTicks = SDL_GetTicks() - startTicks;
     deltaTime = elapseTicks * 0.001f;
 }

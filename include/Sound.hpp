@@ -16,6 +16,7 @@ public:
   void Load_Audio(const char *path);
     // can add pause functionality (TO_IMPLEMENT)
   void Create_Track();
+  bool CheckPlaying();
   void Stop();
   void Play();
   void Close();

@@ -25,6 +25,6 @@ private:
 
     float scale; // scale of an texture
     int offx, offy; // offset
-    int w,h; // to properly calibrate the offset
+    float w,h; // to properly calibrate the offset
     int x,y; // positions
 };

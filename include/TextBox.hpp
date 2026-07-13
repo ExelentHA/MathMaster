@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <memory>
-#include <SDL2/SDL.h>
+#include <SDL3/SDL.h>
 
 #include "Text.hpp"
 #include "Timer.hpp"
@@ -26,11 +26,10 @@ public:
     void Enable(bool set);
 private:
     std::unique_ptr<Timer> timer = std::make_unique<Timer>(); // std::unique_ptr<typename T> deletes the objest automatically
-    
     Sound s;
     Text text;
     std::string t, orgT;
-    SDL_Color color {0xcc, 0xda, 0xd7, 200};
+    SDL_Color color {0xcc, 0xda, 0xd7, 0xff};
     int x, y, offx, offy, index;
     float scale, seconds;
     bool isButton, isEnable;

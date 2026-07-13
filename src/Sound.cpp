@@ -48,6 +48,11 @@ bool Sound::Check()
   return hasSound;
 }
 
+bool Sound::CheckPlaying()
+{
+  return MIX_TrackPlaying(track);
+}
+
 void Sound::Stop()
 {
   assert(MIX_StopTrack(track, 0) == 0);

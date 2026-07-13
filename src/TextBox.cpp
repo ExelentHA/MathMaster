@@ -18,7 +18,7 @@ TextBox::~TextBox()
 
 void TextBox::LoadSound(const char *path)
 {
-    s.Init(path);
+    s.Load_Audio(path);
 }
 
 void TextBox::Refresh()
@@ -49,7 +49,7 @@ void TextBox::RenderDynamic(SDL_Renderer *renderer)
             }
             timer->Reset();
         }
-        SDL_RenderCopy(renderer, text.GetTexture(), nullptr, &text.rect);
+        SDL_RenderTexture(renderer, text.GetTexture(), nullptr, &text.rect);
     }
 }
 
@@ -59,7 +59,7 @@ void TextBox::Update(SDL_Renderer *r)
     {
         if(Clicked())
         {
-            if(Mix_PlayingMusic())
+	  if(s.CheckPlaying())
             {
                 s.Stop();
                 s.Play();
@@ -71,7 +71,7 @@ void TextBox::Update(SDL_Renderer *r)
         }
         if(hovered)
         {
-            SDL_Color tcolor {0xf5,0xf9,0xad};
+	  SDL_Color tcolor {0xf5,0xf9,0xad,0xff};
             text.SetColor(&tcolor);
             if(orgT == "")
                 orgT = " ";
@@ -97,7 +97,7 @@ void TextBox::RenderStatic(SDL_Renderer *renderer)
 {
     if(isButton)
     { 
-        SDL_RenderCopy(renderer, text.GetTexture(), nullptr, &text.rect);
+        SDL_RenderTexture(renderer, text.GetTexture(), nullptr, &text.rect);
     }
         
 }

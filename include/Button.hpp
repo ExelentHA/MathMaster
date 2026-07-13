@@ -17,5 +17,5 @@ public:
 protected:
     bool pressed = false;
     bool hovered = false;
-    SDL_Rect *rect; // size and bounderies
+    SDL_FRect *rect; // size and bounderies
 };
