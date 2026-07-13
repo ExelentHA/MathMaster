@@ -9,8 +9,10 @@
 class Clock
 {
 public:
-    Clock(const char* path, int posx, int posy, float scale, SDL_Renderer *r);
+    Clock();
     ~Clock();
+
+    void Init(const char* path, int posx, int posy, float scale, SDL_Renderer *r);
 
     void Refresh();
     void SetTime(unsigned int ptime);

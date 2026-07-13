@@ -1,11 +1,9 @@
 #include "TextBox.hpp"
 
-TextBox::TextBox(const char *path,int posx, int posy, float pscale, SDL_Renderer *r, bool interactive)
+TextBox::TextBox()
 {
     rect = &text.rect;
-    text.Init(path, posx, posy, pscale, r);
     text.SetColor(&color);
-    isButton = interactive;
     isEnable = true;
     seconds = 1;
     LoadSound("res/sfx/button.ogg");
@@ -14,6 +12,12 @@ TextBox::TextBox(const char *path,int posx, int posy, float pscale, SDL_Renderer
 TextBox::~TextBox()
 {
     
+}
+
+void TextBox::Init(const char *path, int posx, int posy, float pscale, SDL_Renderer *r, bool interactive)
+{
+    text.Init(path, posx, posy, pscale, r);
+    isButton = interactive;
 }
 
 void TextBox::LoadSound(const char *path)

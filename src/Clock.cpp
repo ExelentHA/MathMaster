@@ -1,12 +1,16 @@
 #include "Clock.hpp"
 
-Clock::Clock(const char* path, int posx, int posy, float scale, SDL_Renderer *r)
+Clock::Clock()
 {
-    text.Init(path, posx, posy, scale, r);
 }
 
 Clock::~Clock()
 {
+}
+
+void Clock::Init(const char *path, int posx, int posy, float scale, SDL_Renderer *r)
+{
+    text.Init(path, posx, posy, scale, r);
 }
 
 void Clock::Refresh()

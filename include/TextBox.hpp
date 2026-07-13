@@ -12,11 +12,11 @@
 class TextBox : public Button
 {
 public:
-    TextBox(const char *path,int posx, int posy, float pscale, SDL_Renderer *r, bool interactive);
+    TextBox();
     ~TextBox();
 
-    void LoadSound(const char *path);
-
+    void Init(const char *path,int posx, int posy, float pscale, SDL_Renderer *r, bool interactive);
+    
     void Refresh();
     void SetRenderSpeed(float seconds);
     void RenderDynamic(SDL_Renderer *renderer); // set the text dinamically on the screen
@@ -25,6 +25,9 @@ public:
     void SetText(std::string ptext);
     void Enable(bool set);
 private:
+    void LoadSound(const char *path);
+
+
     std::unique_ptr<Timer> timer = std::make_unique<Timer>(); // std::unique_ptr<typename T> deletes the objest automatically
     Sound s;
     Text text;
