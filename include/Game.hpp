@@ -29,15 +29,17 @@ private:
   TextBox tb_menu2;
 
   Clock clock;
+  Timer gtime;
 
 
   bool isAlreadyMenu = false; // flags to prevent one-time-call-functions from executing morethan once
   bool isAlreadyGame = false;
   
+  SDL_Event event;
 
   enum state
   {
-    menu = 0, game // change game state names
+    menu = 0, game, gameover // change game state names
   };
 
   enum questionSet
@@ -49,7 +51,7 @@ private:
   questionSet choosenSet; // set inside the LogicMenu()
 
   int level, score, streak, mistakes, corrects, noQuest, corrAnsBtn; // ingame point tracker
-  bool GameOver;
+  bool gameOver;
   bool isGameQuestionStillUp = false; // this will tell if the current question is not yet solved
 
   // ingame variables
@@ -59,8 +61,8 @@ private:
   std::array<int, 4> ans = {0, 0, 0, 0};
 
 public:
-  Game() {}
-  ~Game() {}
+  Game();
+  ~Game();
 
   void Init();
 
@@ -68,6 +70,11 @@ public:
   void InitMenu(); // Set the Text to Menu Text
   void LogicMenu();
 
+  // Events
+  void Event();
+
+  
+  
   //in game state
   void InitInGame();
 
@@ -77,6 +84,13 @@ public:
   void GenQMul();
   void GenQDiv();
 
+  // init question
+  void InitQuestion();
+  void Correct();
+  void Mistake();
+  void CheckButton();
+
+  void GameOver();
 
   void Main();
 };

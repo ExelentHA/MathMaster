@@ -1,22 +1,8 @@
-
-
-
-
-SDL_Texture *LoadTexture(SDL_Renderer *renderer, const char *path);
-
-
-
+#include "Game.hpp"
 
 int main(int argc, char *argv[])
 {
+	Game game;
     return 0;
 }
 
-SDL_Texture *LoadTexture(SDL_Renderer *renderer, const char *path)
-{
-    SDL_Texture* texture = NULL;
-	texture = IMG_LoadTexture(renderer, path);
-	if (texture == NULL)
-		std::cout << "Failed to load texture. Error: " << SDL_GetError() << std::endl;
-	return texture;
-}
