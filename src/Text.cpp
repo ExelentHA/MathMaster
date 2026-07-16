@@ -11,6 +11,7 @@ Text::~Text()
   TTF_Quit();
 }
 
+// Create a load function
 void Text::Init(const char *path, int posx, int posy, float pscale, SDL_Renderer *r)
 {
     if(!TTF_Init())

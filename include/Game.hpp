@@ -31,7 +31,6 @@ private:
   Clock clock;
   Timer gtime;
 
-
   bool isAlreadyMenu = false; // flags to prevent one-time-call-functions from executing morethan once
   bool isAlreadyGame = false;
   
@@ -72,8 +71,6 @@ public:
 
   // Events
   void Event();
-
-  
   
   //in game state
   void InitInGame();

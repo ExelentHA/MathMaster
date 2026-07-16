@@ -347,27 +347,27 @@ void Game::GenQDiv()
 void Game::InitQuestion()
 {
   if(!isGameQuestionStillUp) // generate a new problem
-      {                                
-        GenQuestion(); //generate questions
-        
-        std::random_shuffle(ans.begin(), ans.end());
-        // update and set text screens, ie problem selection and problem text
-        question.SetText(std::to_string(lval)+op+std::to_string(rval));
-        btn_question1.SetText(std::to_string(ans[0]));
-        btn_question2.SetText(std::to_string(ans[1]));
-        btn_question3.SetText(std::to_string(ans[2]));
-        btn_question4.SetText(std::to_string(ans[3]));
-        
-        // determinr correct answer button
-        corrAnsBtn = 0;
-        for(auto i : ans)
-        {
-          if(i == result)
-          break;
-          corrAnsBtn++;
-        }
-        isGameQuestionStillUp = true; // to avoid regenerating the question again
-      }
+  {                                
+    GenQuestion(); //generate questions
+    
+    std::random_shuffle(ans.begin(), ans.end());
+    // update and set text screens, ie problem selection and problem text
+    question.SetText(std::to_string(lval)+op+std::to_string(rval));
+    btn_question1.SetText(std::to_string(ans[0]));
+    btn_question2.SetText(std::to_string(ans[1]));
+    btn_question3.SetText(std::to_string(ans[2]));
+    btn_question4.SetText(std::to_string(ans[3]));
+    
+    // determinr correct answer button
+    corrAnsBtn = 0;
+    for(auto i : ans)
+    {
+      if(i == result)
+      break;
+      corrAnsBtn++;
+    }
+    isGameQuestionStillUp = true; // to avoid regenerating the question again
+  }
 }
 
 void Game::Correct()
@@ -504,10 +504,11 @@ void Game::Main()
   Window = new WindowRenderer();
   Window->create("", WIDTH, HEIGHT);
   
-  
   // init
   Mouse cursor(Window->renderer, "res/cursor2.png");
   
+  Init();
+
   SDL_Texture *bg = LoadTexture(Window->renderer, "res/bgR.png");
   
   bool running = true;

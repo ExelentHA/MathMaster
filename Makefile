@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -g -std=c++17 -Iinclude -Wall -Wextra # -Werror
+CFLAGS = -g -std=c++20 -Iinclude -Wall -Wextra # -Werror
 # LFLAGS = 
 
 BINDIR = bin

@@ -7,6 +7,7 @@ TODO: Lazy Assert.. Change to proper error handling
 
 Sound::Sound()
 {
+    Init();
     hasSound = false;
 }
 
