@@ -66,5 +66,6 @@ void Sound::Play()
 
 void Sound::Close()
 {
-  MIX_DestroyMixer(mixer); // Destroy The Mixer
+  MIX_Quit();
+  // MIX_DestroyMixer(mixer); // Destroy The Mixer
 }

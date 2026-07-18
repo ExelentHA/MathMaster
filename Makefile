@@ -11,7 +11,6 @@ LIBDIR = lib
 SRC := $(wildcard $(SRCDIR)/*.cpp)
 OBJ := $(patsubst $(SRCDIR)/%.cpp,$(BINDIR)/%.o,$(SRC))
 
-
 TARGET = $(BINDIR)/app
 
 all: $(TARGET)

@@ -23,7 +23,7 @@ void Text::Init(const char *path, int posx, int posy, float pscale, SDL_Renderer
     {
         std::cerr << "Failed to load fonts Error: " << SDL_GetError() << std::endl;
     }
-    color = {
+    color = { // Default Color
         0xff, // r
         0xff, // b
         0xff, // g
@@ -44,8 +44,6 @@ void Text::Init(const char *path, int posx, int posy, float pscale, SDL_Renderer
     y = posy;
     scale = pscale;
     
-    // SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
-    // SDL_QueryTexture() has been removed in SDL3.
     SDL_GetTextureSize(texture, &w, &h);
     
     offx = w / 2 * -1;
@@ -65,7 +63,7 @@ void Text::Update(const char *ptext, SDL_Renderer *renderer, bool forceUpdate)
         prevText = ptext;
         if (surface)
             SDL_DestroySurface(surface);
-        surface = TTF_RenderText_Solid(font, ptext, sizeof(ptext), color);
+        surface = TTF_RenderText_Solid(font, ptext, 0, color);
         if (surface == nullptr) 
         {
             std::cerr << "UPDATE Failed to create surface. Error: " << SDL_GetError() << std::endl;

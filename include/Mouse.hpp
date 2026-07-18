@@ -7,11 +7,12 @@
 class Mouse
 {
 public:
-    Mouse(SDL_Renderer *renderer, const char *path);
+    Mouse();
     ~Mouse();
 
     void update(); // updates positions
     SDL_Texture *GetTexture();
+    void Init(SDL_Renderer *renderer, const char *path);
     void Draw(SDL_Renderer *r);
     SDL_FRect point; // use to inteact with button
 private:

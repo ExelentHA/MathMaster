@@ -26,7 +26,7 @@ void Clock::SetTime(unsigned int ptime)
 
 void Clock::Reset()
 {
-    color = {0xff, 0xff, 0xff};
+    color = {0xff, 0xff, 0xff, 0xff};
     time = orgTime;
 }
 

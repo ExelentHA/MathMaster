@@ -7,7 +7,7 @@
 #include "Text.hpp"
 #include "Timer.hpp"
 #include "Button.hpp"
-#include "Sound.hpp"
+// #include "Sound.hpp" // Remove Temp.
 
 class TextBox : public Button
 {
@@ -29,7 +29,7 @@ private:
 
 
     std::unique_ptr<Timer> timer = std::make_unique<Timer>(); // std::unique_ptr<typename T> deletes the objest automatically
-    Sound s;
+    // Sound s;
     Text text;
     std::string t, orgT;
     SDL_Color color {0xcc, 0xda, 0xd7, 0xff};

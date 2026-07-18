@@ -29,7 +29,7 @@ void Timer::SetTimeScale(float t)
 
 float Timer::GetTimeScale()
 {
-    return timeScale;
+    return timeScale; // why ??
 }
 
 void Timer::Update()

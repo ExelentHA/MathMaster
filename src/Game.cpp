@@ -9,12 +9,19 @@ Game::Game()
 
 Game::~Game()
 {
-  delete Window;
+  delete Window; // i guess destroying this obj is not enough to properly close
+                 // the program
+  Window = nullptr;
+
 }
 
 void Game::Init()
 {
+  Window = new WindowRenderer();
+  Window->create("", WIDTH, HEIGHT);
+
   gameState = menu;
+  
   // Button Init
   btn_question1.Init("res/ttf/Playtime.ttf", (WIDTH/4)+14, (HEIGHT/2)+60, 0.4f, Window->renderer, true   );
   btn_question2.Init("res/ttf/Playtime.ttf", (WIDTH/4)+14, (21*HEIGHT)/24, 0.4f, Window->renderer, true  );
@@ -29,6 +36,8 @@ void Game::Init()
   tb_menu1.SetRenderSpeed(0.5);
   
   clock.Init("res/ttf/carre.ttf",(WIDTH/2)-8, ((HEIGHT+HEIGHT)/3)+60, 0.4f, Window->renderer);
+
+  cursor.Init(Window->renderer, "res/cursor2.png");
 }
 
 void Game::InitMenu()
@@ -102,7 +111,7 @@ void Game::InitInGame()
     question.SetText("Question");
     tb_menu1.SetText("Correct/Mistake");
     tb_menu2.SetText("Score: 0");
-    clock.SetTime(99);
+    clock.SetTime(10);
     isAlreadyGame = true; // so these functions will not initialize again
   }
 }
@@ -154,7 +163,7 @@ void Game::GenQAdd()
   }
   min = result - (result * 0.5);
   max = result + (result * 0.5);
-  for(size_t i = 0; i < ans.size(); i++)
+  for(int i = 0; i < (int)ans.size(); i++)
   {
     int n;
     bool dup; // no duplicate choices
@@ -350,7 +359,11 @@ void Game::InitQuestion()
   {                                
     GenQuestion(); //generate questions
     
-    std::random_shuffle(ans.begin(), ans.end());
+    // shuffle
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(ans.begin(), ans.end(), rd);
+
     // update and set text screens, ie problem selection and problem text
     question.SetText(std::to_string(lval)+op+std::to_string(rval));
     btn_question1.SetText(std::to_string(ans[0]));
@@ -476,7 +489,7 @@ void Game::GameOver()
 {
   // set all questions to blank
   // show results
-  gtime.Update();
+  gtime.Update(); // start counting
   if(!gameOver)
   {
     question.SetText("Your Score: " + std::to_string(score));
@@ -488,9 +501,7 @@ void Game::GameOver()
     btn_question3.SetText("");
     btn_question4.SetText("");
     // Reset Flags
-    gameOver =      true; // what??
-    isAlreadyMenu = false; 
-    isAlreadyGame = false;
+    gameOver =      true; // 
   }
 }
 
@@ -500,19 +511,11 @@ void Game::Main()
   const int frameDelay = 1000/FPS;
   uint32_t frameStart;
   int frameTime;
-  
-  Window = new WindowRenderer();
-  Window->create("", WIDTH, HEIGHT);
-  
   // init
-  Mouse cursor(Window->renderer, "res/cursor2.png");
-  
   Init();
 
   SDL_Texture *bg = LoadTexture(Window->renderer, "res/bgR.png");
-  
   bool running = true;
-  
   while(running)
   {
     frameStart = SDL_GetTicks();
@@ -540,27 +543,31 @@ void Game::Main()
         InitMenu(); // Initialize Texts and Flags
         LogicMenu(); // Button Events
         break;
-      default:
+      case game:
         InitInGame();
         // generate a problem
         InitQuestion();
         // logic
-        
         // check the clock
         if(!clock.NoTime())
         {
           CheckButton();
         }
-        else // game over
+        else
         {
-          GameOver();
-          if(gtime.GetDeltaTime() >= 10.f/1) // delay before it sets to menu
-          {                                  // make another state for game over
-            gameState = menu;
-            gtime.Reset();
-          }
+          gameState = gameover; 
         }
-      break;
+        break;
+      case gameover:
+        GameOver();
+        if(gtime.GetDeltaTime() >= 30.f/1) // delay before it sets to menu
+        {                                  // make another state for game over
+          gameState = menu;
+          isAlreadyMenu = false; 
+          isAlreadyGame = false;
+          gtime.Reset();
+        }
+        break;
     }
     
     clock.Update(Window->renderer);
@@ -593,11 +600,9 @@ void Game::Main()
     //limit frames
     frameTime = SDL_GetTicks() - frameStart;
     if(frameDelay > frameTime)
-    SDL_Delay(frameDelay - frameTime);
+      SDL_Delay(frameDelay - frameTime);
   }
-  
   Window->clean();
-  
 }
 
 // throw away function. Fuck Lambda WebDev Shit

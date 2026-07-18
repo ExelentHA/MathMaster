@@ -6,7 +6,7 @@ TextBox::TextBox()
     text.SetColor(&color);
     isEnable = true;
     seconds = 1;
-    LoadSound("res/sfx/button.ogg");
+    // LoadSound("res/sfx/button.ogg");
 }
 
 TextBox::~TextBox()
@@ -22,7 +22,7 @@ void TextBox::Init(const char *path, int posx, int posy, float pscale, SDL_Rende
 
 void TextBox::LoadSound(const char *path)
 {
-    s.Load_Audio(path);
+    // s.Load_Audio(path);
 }
 
 void TextBox::Refresh()
@@ -61,18 +61,18 @@ void TextBox::Update(SDL_Renderer *r)
 {
     if(isEnable)
     {
-        if(Clicked())
-        {
-	  if(s.CheckPlaying())
-            {
-                s.Stop();
-                s.Play();
-            }
-            else
-            {
-                s.Play();
-            }
-        }
+    //     if(Clicked())
+    //     {
+	//   if(s.CheckPlaying())
+    //         {
+    //             s.Stop();
+    //             s.Play();
+    //         }
+    //         else
+    //         {
+    //             s.Play();
+    //         }
+    //     }
         if(hovered)
         {
 	  SDL_Color tcolor {0xf5,0xf9,0xad,0xff};

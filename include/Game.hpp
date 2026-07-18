@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <algorithm>
 #include <array>
-#include <time.h>
+#include <ctime>
+#include <random>
 
 #include "Window.hpp"
 #include "Mouse.hpp"
@@ -14,7 +15,7 @@
 class Game
 {
 private:
-  WindowRenderer *Window;
+  WindowRenderer *Window = nullptr;
   const int WIDTH = 1280; // screen size
   const int HEIGHT = 720;
 
@@ -30,6 +31,8 @@ private:
 
   Clock clock;
   Timer gtime;
+
+  Mouse cursor;
 
   bool isAlreadyMenu = false; // flags to prevent one-time-call-functions from executing morethan once
   bool isAlreadyGame = false;

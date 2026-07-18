@@ -25,7 +25,6 @@ private:
   MIX_Audio *sound; // An opaque object that represents audio data. Loads the Audio to the mixer 
   MIX_Track *track; // An opaque object that represents a source of sound output to be mixed. It is the control of the playbacks(stop, pause, play)
 
-
   bool hasSound; // what exactly this flag is used?
 };
 
