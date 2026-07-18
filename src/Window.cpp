@@ -2,9 +2,9 @@
 
 WindowRenderer::WindowRenderer()
 {
-  if(!SDL_Init(SDL_INIT_VIDEO))
+  if(!SDL_Init(SDL_INIT_VIDEO) && !SDL_Init(SDL_INIT_AUDIO))
     {
-        std::cerr << "SDL Filed to initialize err: " << SDL_GetError() << std::endl; 
+        std::cerr << "SDL_VIDEO and SDL_AUDIO Error: " << SDL_GetError() << std::endl; 
     }
 }
 
@@ -30,11 +30,11 @@ void WindowRenderer::loadImage(const char *path)
     // load a texture
     SDL_Surface *img = IMG_Load(path);
     if(img == nullptr)
-        std::cerr << "IMG path error: " << SDL_GetError() << std::endl;
+        std::cerr << "IMG_Load() Error: " << SDL_GetError() << std::endl;
     texture = IMG_LoadTexture(renderer, path);
     SDL_DestroySurface(img); // clear Img buffer
     if(texture == nullptr)
-        std::cerr << "CreateTextureFromSurface error: " << SDL_GetError() << std::endl;
+        std::cerr << "IMG_LoadTexture() Error: " << SDL_GetError() << std::endl;
 }
 
 void WindowRenderer::clear()
@@ -50,21 +50,16 @@ void WindowRenderer::present()
 void WindowRenderer::render(SDL_Texture *t,int posx, int posy, int offsetx, int offsety, int size)
 { 
     SDL_FRect dst;
-	// src.x = 0;
-	// src. y = 0;
-
 	SDL_GetTextureSize(t, &dst.w, &dst.h);
-
-    // src.w = dst.w;
-    // src.h = src.h;
 
 	dst.x = posx + offsetx/size;
 	dst.y = posy + offsety/size;
 	dst.w = dst.w/size;
 	dst.h = dst.h/size;
-    // std::cout << dst.h << " " << dst.w << std::endl;
+
     // render
-    SDL_RenderTexture(renderer, t, nullptr, &dst);
+    if(!SDL_RenderTexture(renderer, t, nullptr, &dst))
+        std::cerr << "SDL_RenderTexture() Error: " << SDL_GetError() << std::endl;
 }
 
 void WindowRenderer::clean()

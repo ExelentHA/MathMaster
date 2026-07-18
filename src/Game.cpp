@@ -111,7 +111,7 @@ void Game::InitInGame()
     question.SetText("Question");
     tb_menu1.SetText("Correct/Mistake");
     tb_menu2.SetText("Score: 0");
-    clock.SetTime(10);
+    clock.SetTime(60);
     isAlreadyGame = true; // so these functions will not initialize again
   }
 }
@@ -496,6 +496,8 @@ void Game::GameOver()
     tb_menu1.SetText("[X]"+std::to_string(mistakes) + "[O]"+std::to_string(corrects));
     tb_menu2.SetText("GAME OVER");
     
+    clock.SetTime(10);
+
     btn_question1.SetText("");
     btn_question2.SetText("");
     btn_question3.SetText("");
@@ -560,7 +562,7 @@ void Game::Main()
         break;
       case gameover:
         GameOver();
-        if(gtime.GetDeltaTime() >= 30.f/1) // delay before it sets to menu
+        if(gtime.GetDeltaTime() >= 23.f/1) // delay before it sets to menu
         {                                  // make another state for game over
           gameState = menu;
           isAlreadyMenu = false; 

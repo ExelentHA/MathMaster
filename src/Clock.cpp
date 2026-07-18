@@ -47,7 +47,6 @@ void Clock::Update(SDL_Renderer *r)
             text.SetColor(&color);
             text.Update((char*)std::to_string(time).c_str(), r, false);
         }
-        // std::cout << timer.GetDeltaTime() << std::endl;
         timer.Reset();
         if(time != 0)
         {

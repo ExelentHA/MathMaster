@@ -11,7 +11,6 @@ TextBox::TextBox()
 
 TextBox::~TextBox()
 {
-    
 }
 
 void TextBox::Init(const char *path, int posx, int posy, float pscale, SDL_Renderer *r, bool interactive)
@@ -20,10 +19,10 @@ void TextBox::Init(const char *path, int posx, int posy, float pscale, SDL_Rende
     isButton = interactive;
 }
 
-void TextBox::LoadSound(const char *path)
-{
-    // s.Load_Audio(path);
-}
+// void TextBox::LoadSound(const char *path)
+// {
+//     // s.Load_Audio(path);
+// }
 
 void TextBox::Refresh()
 {

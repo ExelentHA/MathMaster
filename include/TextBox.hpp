@@ -25,11 +25,10 @@ public:
     void SetText(std::string ptext);
     void Enable(bool set);
 private:
-    void LoadSound(const char *path);
-
+    // void LoadSound(const char *path);
+    // Sound s;
 
     std::unique_ptr<Timer> timer = std::make_unique<Timer>(); // std::unique_ptr<typename T> deletes the objest automatically
-    // Sound s;
     Text text;
     std::string t, orgT;
     SDL_Color color {0xcc, 0xda, 0xd7, 0xff};

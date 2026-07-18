@@ -13,7 +13,6 @@ public:
     ~Clock();
 
     void Init(const char* path, int posx, int posy, float scale, SDL_Renderer *r);
-
     void Refresh();
     void SetTime(unsigned int ptime);
     void Reset();
@@ -22,7 +21,7 @@ public:
     void Render(SDL_Renderer *renderer);
 private:
     unsigned int time = 0, orgTime = 0;
-  SDL_Color color {0xff, 0xff, 0xff, 0xff};
+    SDL_Color color {0xff, 0xff, 0xff, 0xff};
     Text text;
     Timer timer;
 };
